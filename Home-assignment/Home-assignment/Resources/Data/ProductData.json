@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Peas",
+        "priceUSD": 0.95,
+        "unit": "bag",
+        "imageName": ""
+    },
+    {
+        "name": "Eggs",
+        "priceUSD": 2.10,
+        "unit": "dozen",
+        "imageName": ""
+    },
+    {
+        "name": "Milk",
+        "priceUSD": 1.30,
+        "unit": "bottle",
+        "imageName": ""
+    },
+    {
+        "name": "Beans",
+        "priceUSD": 0.73,
+        "unit": "can",
+        "imageName": ""
+    }
+]

@@ -7,9 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E511312523A4485A004CAF22 /* ProductData.json in Resources */ = {isa = PBXBuildFile; fileRef = E511312423A4485A004CAF22 /* ProductData.json */; };
+		E511312823A44980004CAF22 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = E511312723A44980004CAF22 /* Product.swift */; };
+		E5296D1923A43817005FDE41 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5296D1823A43817005FDE41 /* StringExtensions.swift */; };
+		E5296D1D23A43974005FDE41 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E5296D1F23A43974005FDE41 /* Localizable.strings */; };
 		E5A31E3223A4069900222AC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A31E3123A4069900222AC8 /* AppDelegate.swift */; };
 		E5A31E3423A4069900222AC8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A31E3323A4069900222AC8 /* SceneDelegate.swift */; };
-		E5A31E3623A4069900222AC8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A31E3523A4069900222AC8 /* ContentView.swift */; };
+		E5A31E3623A4069900222AC8 /* ShoppingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A31E3523A4069900222AC8 /* ShoppingListView.swift */; };
 		E5A31E3823A4069B00222AC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5A31E3723A4069B00222AC8 /* Assets.xcassets */; };
 		E5A31E3B23A4069B00222AC8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5A31E3A23A4069B00222AC8 /* Preview Assets.xcassets */; };
 		E5A31E3E23A4069B00222AC8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5A31E3C23A4069B00222AC8 /* LaunchScreen.storyboard */; };
@@ -27,10 +31,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E511312423A4485A004CAF22 /* ProductData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ProductData.json; sourceTree = "<group>"; };
+		E511312723A44980004CAF22 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		E5296D1823A43817005FDE41 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		E5296D1E23A43974005FDE41 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E5A31E2E23A4069900222AC8 /* Home-assignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Home-assignment.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5A31E3123A4069900222AC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5A31E3323A4069900222AC8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E5A31E3523A4069900222AC8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E5A31E3523A4069900222AC8 /* ShoppingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListView.swift; sourceTree = "<group>"; };
 		E5A31E3723A4069B00222AC8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E5A31E3A23A4069B00222AC8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E5A31E3D23A4069B00222AC8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,10 +66,112 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E511312323A4481D004CAF22 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E511312423A4485A004CAF22 /* ProductData.json */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		E511312623A4496E004CAF22 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E511312723A44980004CAF22 /* Product.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E511312923A44AC7004CAF22 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E5A31E3523A4069900222AC8 /* ShoppingListView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E511312A23A44AD9004CAF22 /* View model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "View model";
+			sourceTree = "<group>";
+		};
+		E5296D1723A43801005FDE41 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E5296D1823A43817005FDE41 /* StringExtensions.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		E5296D1A23A4392F005FDE41 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E511312323A4481D004CAF22 /* Data */,
+				E5296D2523A43D46005FDE41 /* Localized strings */,
+				E5296D2423A43D3D005FDE41 /* Assets */,
+				E5A31E3923A4069B00222AC8 /* Preview Content */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		E5296D2023A43C6D005FDE41 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				E5296D2123A43C75005FDE41 /* Shopping list */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		E5296D2123A43C75005FDE41 /* Shopping list */ = {
+			isa = PBXGroup;
+			children = (
+				E511312623A4496E004CAF22 /* Model */,
+				E511312A23A44AD9004CAF22 /* View model */,
+				E511312923A44AC7004CAF22 /* View */,
+			);
+			path = "Shopping list";
+			sourceTree = "<group>";
+		};
+		E5296D2223A43C85005FDE41 /* App delegate */ = {
+			isa = PBXGroup;
+			children = (
+				E5A31E3123A4069900222AC8 /* AppDelegate.swift */,
+				E5A31E3323A4069900222AC8 /* SceneDelegate.swift */,
+			);
+			path = "App delegate";
+			sourceTree = "<group>";
+		};
+		E5296D2323A43CDF005FDE41 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				E5A31E3C23A4069B00222AC8 /* LaunchScreen.storyboard */,
+			);
+			path = Launch;
+			sourceTree = "<group>";
+		};
+		E5296D2423A43D3D005FDE41 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				E5A31E3723A4069B00222AC8 /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		E5296D2523A43D46005FDE41 /* Localized strings */ = {
+			isa = PBXGroup;
+			children = (
+				E5296D1F23A43974005FDE41 /* Localizable.strings */,
+			);
+			path = "Localized strings";
+			sourceTree = "<group>";
+		};
 		E5A31E2523A4069900222AC8 = {
 			isa = PBXGroup;
 			children = (
 				E5A31E3023A4069900222AC8 /* Home-assignment */,
+				E5A31E3F23A4069B00222AC8 /* Info.plist */,
 				E5A31E4723A4069B00222AC8 /* Home-assignmentTests */,
 				E5A31E2F23A4069900222AC8 /* Products */,
 			);
@@ -79,13 +189,11 @@
 		E5A31E3023A4069900222AC8 /* Home-assignment */ = {
 			isa = PBXGroup;
 			children = (
-				E5A31E3123A4069900222AC8 /* AppDelegate.swift */,
-				E5A31E3323A4069900222AC8 /* SceneDelegate.swift */,
-				E5A31E3523A4069900222AC8 /* ContentView.swift */,
-				E5A31E3723A4069B00222AC8 /* Assets.xcassets */,
-				E5A31E3C23A4069B00222AC8 /* LaunchScreen.storyboard */,
-				E5A31E3F23A4069B00222AC8 /* Info.plist */,
-				E5A31E3923A4069B00222AC8 /* Preview Content */,
+				E5296D2323A43CDF005FDE41 /* Launch */,
+				E5296D2223A43C85005FDE41 /* App delegate */,
+				E5296D1A23A4392F005FDE41 /* Resources */,
+				E5296D1723A43801005FDE41 /* Utilities */,
+				E5296D2023A43C6D005FDE41 /* Features */,
 			);
 			path = "Home-assignment";
 			sourceTree = "<group>";
@@ -188,7 +296,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5296D1D23A43974005FDE41 /* Localizable.strings in Resources */,
 				E5A31E3E23A4069B00222AC8 /* LaunchScreen.storyboard in Resources */,
+				E511312523A4485A004CAF22 /* ProductData.json in Resources */,
 				E5A31E3B23A4069B00222AC8 /* Preview Assets.xcassets in Resources */,
 				E5A31E3823A4069B00222AC8 /* Assets.xcassets in Resources */,
 			);
@@ -208,9 +318,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5296D1923A43817005FDE41 /* StringExtensions.swift in Sources */,
 				E5A31E3223A4069900222AC8 /* AppDelegate.swift in Sources */,
+				E511312823A44980004CAF22 /* Product.swift in Sources */,
 				E5A31E3423A4069900222AC8 /* SceneDelegate.swift in Sources */,
-				E5A31E3623A4069900222AC8 /* ContentView.swift in Sources */,
+				E5A31E3623A4069900222AC8 /* ShoppingListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +345,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		E5296D1F23A43974005FDE41 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E5296D1E23A43974005FDE41 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		E5A31E3C23A4069B00222AC8 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -363,10 +483,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Home-assignment/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Home-assignment/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = M664NCDXH4;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "Home-assignment/Info.plist";
+				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -383,10 +503,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Home-assignment/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Home-assignment/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = M664NCDXH4;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "Home-assignment/Info.plist";
+				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

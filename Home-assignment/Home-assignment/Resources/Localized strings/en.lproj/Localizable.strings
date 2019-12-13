@@ -1,0 +1,11 @@
+/* 
+  Localized.strings
+  Home-assignment
+
+  Created by Paweł Wiśniewski on 13/12/2019.
+  Copyright © 2019 promo. All rights reserved.
+*/
+
+"common.per" = "per";
+
+"shoppingList.title" = "Shopping time 🛒";
