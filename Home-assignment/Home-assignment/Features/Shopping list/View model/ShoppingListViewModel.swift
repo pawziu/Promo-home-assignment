@@ -29,6 +29,12 @@ final class ShoppingListViewModel: ObservableObject {
         loadProducts()
     }
     
+    // MARK: - Bindings
+    
+    private func setupBindings() {
+        
+    }
+    
     // MARK: - Data
     
     private func loadProducts() {
