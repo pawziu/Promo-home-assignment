@@ -8,4 +8,5 @@
 
 extension String {
     static var space: String { " " }
+    static var empty: String { "" }
 }

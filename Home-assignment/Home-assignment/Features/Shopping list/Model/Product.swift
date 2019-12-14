@@ -9,16 +9,24 @@
 import Foundation
 import SwiftUI
 
-struct Product: Decodable {
+struct Product: Decodable, Identifiable {
+    
+    var id: String { name }
     
     let name: String
     let priceUSD: Decimal
     let unit: String
-    private let imageName: String
+    let imageName: String
     
-//    var image: Image {
-//        ImageStore.shared.image(name: imageName)
-//    }
+    init(name: String,
+         priceUSD: Decimal,
+         unit: String,
+         imageName: String) {
+        self.name = name
+        self.priceUSD = priceUSD
+        self.unit = unit
+        self.imageName = imageName
+    }
 
     enum Category: String, Codable {
         case name
@@ -26,4 +34,14 @@ struct Product: Decodable {
         case unit
         case imageName
     }
+}
+
+extension Product: Hashable {
+  static func == (lhs: Product, rhs: Product) -> Bool {
+    return lhs.id == rhs.id
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(self.id)
+  }
 }
