@@ -14,10 +14,12 @@ final class ShoppingListViewModel: ObservableObject {
     // MARK: - Dependencies
     
     private let jsonLoader: JSONLoading
+    private let currencyExchange: CurrencyExchanging = CurrencyExchange.shared
     
     // MARK: - Properties
     
     @Published private(set) var dataSource: [Product] = []
+    @Published private(set) var selectedCurrency: Currency = .default
     @Published private(set) var totalAmount: Decimal = 0.0
     
     // MARK: - Initialization

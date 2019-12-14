@@ -23,7 +23,6 @@ struct ShoppingListView: View {
                     shoppingListSection
                 }
                 basketLabel
-                checkoutButton
             }
             .navigationBarTitle("shoppingList.title")
             .navigationBarItems(trailing:
@@ -50,14 +49,16 @@ struct ShoppingListView: View {
             Spacer()
             Text(viewModel.totalAmount.formattedAmount)
                 .padding()
+            checkoutButton
         }
         .background(Color.gray.opacity(0.3))
     }
     
     private var checkoutButton: some View {
-        Button("Checkout") {
+        Button("Checkout >") {
             print("Go to checkout")
         }
+        .padding()
     }
 }
 
