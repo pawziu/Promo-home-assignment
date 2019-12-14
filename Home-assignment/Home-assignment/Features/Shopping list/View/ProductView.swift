@@ -10,21 +10,23 @@ import SwiftUI
 
 struct ProductView: View {
     private let item: Product
+    private let currency: String
     
-    init(item: Product) {
-        self.item = item
+    init(item: ProductItem) {
+        self.item = item.product
+        self.currency = item.currencyName
     }
     
     var body: some View {
         HStack {
             CircleImage(imageName: item.imageName)
-                .frame(width: 100.0, height: 100.0)
+                .frame(width: 60.0, height: 60.0)
             Text(item.name)
                 .bold()
                 .font(.system(size: 25.0))
                 .padding(.leading)
             Spacer()
-            Text("\(item.priceUSD)" + String.space + "$")
+            Text(item.priceUSD.formattedAmount + String.space + currency)
                 .font(.system(size: 20.0))
             VStack {
                 Text("common.per")
@@ -39,45 +41,19 @@ struct ProductView: View {
     }
 }
 
-private enum Subviews {
-    static var priceLabel: some View {
-        VStack {
-            price
-            quantityLabel
-        }
-    }
-
-    static var price: some View {
-        HStack(alignment: .center, spacing: .zero) {
-            Text("12.4")
-            Text(String.space)
-            Text("$")
-        }
-    }
-
-    static var quantityLabel: some View {
-        HStack(alignment: .center, spacing: .zero) {
-            Text("common.per")
-                .font(.caption)
-                .foregroundColor(.gray)
-            Text(" ")
-                .font(.caption)
-                .foregroundColor(.gray)
-            Text("bag")
-                .font(.caption)
-                .foregroundColor(.gray)
-        }
-    }
-}
-
 struct ProductViewPreviews: PreviewProvider {
     static var previews: some View {
-        ProductView(item: Product(
-            name: "Peas",
-            priceUSD: 20.0,
-            unit: "bag",
-            imageName: "peas"
-        ))
+        ProductView(
+            item: ProductItem(
+                product: Product(
+                    name: "Peas",
+                    priceUSD: 20.0,
+                    unit: "bag",
+                    imageName: "peas"
+                ),
+                currencyName: "USD"
+            )
+        )
             .environment(\.locale, .init(identifier: "en"))
     }
 }

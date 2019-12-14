@@ -13,3 +13,15 @@ struct Currency: Equatable {
     
     static var `default`: Currency { Currency(name: "USD") }
 }
+
+extension Currency: Hashable {
+    func hash(into hasher: inout Hasher) {
+      hasher.combine(name)
+    }
+}
+
+extension Currency: Identifiable {
+    var id: String {
+        return name
+    }
+}

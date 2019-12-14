@@ -11,6 +11,9 @@ import Combine
 
 struct ShoppingListView: View {
     @ObservedObject var viewModel: ShoppingListViewModel
+    
+    @State private var isCurrencyPickerPresented = false
+    @State private var pickedCurrency: Currency = .default
 
     init(viewModel: ShoppingListViewModel) {
       self.viewModel = viewModel
@@ -25,13 +28,6 @@ struct ShoppingListView: View {
                 basketLabel
             }
             .navigationBarTitle("shoppingList.title")
-            .navigationBarItems(trailing:
-                HStack {
-                    Button("Currency") {
-                        print("Help tapped!")
-                    }
-                }
-            )
         }
     }
     
@@ -55,10 +51,14 @@ struct ShoppingListView: View {
     }
     
     private var checkoutButton: some View {
-        Button("Checkout >") {
-            print("Go to checkout")
+        NavigationLink(destination: ShoppingListView.checkoutDestination)  {
+            Text("Checkout")
+                .padding()
         }
-        .padding()
+    }
+    
+    static private var checkoutDestination: some View {
+        CheckoutView(viewModel: CheckoutViewModel())
     }
 }
 

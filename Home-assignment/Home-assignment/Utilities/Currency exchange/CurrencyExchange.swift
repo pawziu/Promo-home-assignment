@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 protocol CurrencyExchanging {
-    var currentCurrency: Currency { get }
+    var currentAvailableCurrency: AnyPublisher<Currency, Never> { get }
     var availableCurrencies: [Currency] { get }
     var exchangeAvailable: Bool { get }
     
@@ -24,17 +24,21 @@ final class CurrencyExchange: CurrencyExchanging {
     
     static let shared = CurrencyExchange()
     
-    @Published var availableCurrencies: [Currency] = []
-    @Published var exchangeAvailable: Bool = false
-    @Published var currentCurrency: Currency = .default
+    var availableCurrencies: [Currency] = []
+    var exchangeAvailable: Bool = false
+    var currentAvailableCurrency: AnyPublisher<Currency, Never> {
+        currentAvailableCurrencySubject.eraseToAnyPublisher()
+    }
     
     // MARK: - Properties
     
-    @Published private var chosenCurrency: Currency = .default
-    @Published private var currentExchangeRate: Decimal = .zero
+    private var currentExchangeRate: Decimal = .zero
     private let referenceCurrency: Currency = .default
     
-    private let availableCurrenciesSubject = CurrentValueSubject<[Currency], APIError>([])
+    private let chosenCurrencySubject = CurrentValueSubject<Currency, Never>(.default)
+    private let currentAvailableCurrencySubject = CurrentValueSubject<Currency, Never>(.default)
+    private let currentTimePublisher = Timer.TimerPublisher(interval: 60.0, runLoop: .current, mode: .common)
+    
     private var disposables = Set<AnyCancellable>()
     
     // MARK: - Initialization
@@ -58,15 +62,18 @@ final class CurrencyExchange: CurrencyExchanging {
             .store(in: &disposables)
         
         Publishers
-            .CombineLatest($availableCurrencies, $chosenCurrency)
-            .filter { $0.0.contains($0.1) }
-            .map { $0.1 }
+            .Merge(
+                currentTimePublisher.combineLatest(chosenCurrencySubject).map { $0.1 },
+                chosenCurrencySubject
+            )
+            .filter { $0 != .default }
             .setFailureType(to: APIError.self)
             .flatMap(maxPublishers: .max(1)) { [weak self] currency -> AnyPublisher<ExchangeRatesPairs, APIError> in
                 guard let self = self else { return Fail(error: APIError.unknown).eraseToAnyPublisher() }
                 return self.getExchangeRate(for: currency)
             }
-            .map { $0.rates.first?.rate ?? .zero }
+            .map { $0.rates.first?.value.rate ?? .zero }
+            .catch { _ -> Empty<Decimal, APIError> in Empty(completeImmediately: false) }
             .sink(receiveCompletion: { [weak self] value in
                 guard let self = self else { return }
                 switch value {
@@ -78,7 +85,7 @@ final class CurrencyExchange: CurrencyExchanging {
             }) { [weak self] exchangeRate in
                 guard let self = self else { return}
                 self.currentExchangeRate = exchangeRate
-                self.currentCurrency = self.chosenCurrency
+                self.currentAvailableCurrencySubject.send(self.chosenCurrencySubject.value)
                 self.exchangeAvailable = true
             }
             .store(in: &disposables)
@@ -87,11 +94,11 @@ final class CurrencyExchange: CurrencyExchanging {
     // MARK: - Exchanging
     
     func setCurrency(_ currency: Currency) {
-        chosenCurrency = currency
+        chosenCurrencySubject.send(currency)
     }
     
     func exchange(_ givenAmount: Decimal) -> Decimal {
-        guard chosenCurrency != referenceCurrency else { return givenAmount }
+        guard chosenCurrencySubject.value != referenceCurrency else { return givenAmount }
         return givenAmount * currentExchangeRate
     }
     

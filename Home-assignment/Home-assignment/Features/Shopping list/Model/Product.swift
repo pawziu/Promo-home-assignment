@@ -27,6 +27,13 @@ struct Product: Decodable, Identifiable {
         self.unit = unit
         self.imageName = imageName
     }
+    
+    init(product: Product, newPrice: Decimal) {
+        self.name = product.name
+        self.priceUSD = newPrice
+        self.unit = product.unit
+        self.imageName = product.imageName
+    }
 
     enum Category: String, Codable {
         case name

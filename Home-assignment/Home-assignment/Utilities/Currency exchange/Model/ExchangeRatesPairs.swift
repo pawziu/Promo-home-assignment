@@ -9,5 +9,9 @@
 import Foundation
 
 final class ExchangeRatesPairs: Decodable {
-    let rates: [ExchangeRate]
+    let rates: [String: ExchangeRate]
+    
+    init(rates: [String: ExchangeRate]) {
+        self.rates = rates
+    }
 }
