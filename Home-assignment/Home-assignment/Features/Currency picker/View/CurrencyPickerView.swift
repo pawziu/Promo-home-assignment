@@ -37,8 +37,8 @@ struct CurrencyPickerView: View {
                     }
                 }
             }
+            .navigationBarTitle("currency.change")
         }
-        .navigationBarTitle("currency.change")
         .onAppear {
             self.showActionSheet = !self.viewModel.exchangeAvailable
         }
