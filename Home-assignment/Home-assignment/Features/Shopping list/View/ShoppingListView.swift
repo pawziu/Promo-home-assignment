@@ -10,11 +10,22 @@ import SwiftUI
 import Combine
 
 struct ShoppingListView: View {
+    
+    private enum Configuration {
+        static var sumUpBackgroundOpacity: Double { 0.1 }
+    }
+    
+    // MARK: - View model
+    
     @ObservedObject var viewModel: ShoppingListViewModel
 
+    // MARK: - Initialization
+    
     init(viewModel: ShoppingListViewModel) {
       self.viewModel = viewModel
     }
+    
+    // MARK: - View
     
     var body: some View {
         NavigationView {
@@ -52,7 +63,10 @@ struct ShoppingListView: View {
                     .padding(.trailing)
             }
         }
-        .background(Color.gray.opacity(0.1).blur(radius: 5.0))
+        .background(
+            Color.gray
+                .opacity(Configuration.sumUpBackgroundOpacity)
+        )
     }
     
     private var checkoutButton: some View {
@@ -79,9 +93,11 @@ struct ShoppingListView: View {
     
 }
 
+#if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ShoppingListView(viewModel: ShoppingListViewModel())
             .environment(\.locale, .init(identifier: "en"))
     }
 }
+#endif

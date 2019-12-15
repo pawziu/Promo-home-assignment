@@ -10,6 +10,11 @@ import SwiftUI
 
 struct CircleImage: View {
     
+    private enum Configuration {
+        static var strokeLineWidth: CGFloat { 4.0 }
+        static var shadowRadius: CGFloat { 10.0 }
+    }
+    
     // MARK: - Properties
     
     private let imageName: String
@@ -22,9 +27,9 @@ struct CircleImage: View {
             .resizable()
             .clipShape(Circle())
             .overlay(
-                Circle().stroke(Color.white, lineWidth: 4.0)
+                Circle().stroke(Color.white, lineWidth: Configuration.strokeLineWidth)
             )
-            .shadow(radius: 10)
+            .shadow(radius: Configuration.shadowRadius)
             .aspectRatio(contentMode: .fill)
     }
 }

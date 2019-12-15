@@ -9,21 +9,28 @@
 import SwiftUI
 
 struct CheckoutProductView: View {
+    
+    // MARK: - View model
+    
     @ObservedObject private var viewModel: ProductViewModel
+    
+    // MARK: - Initialization
     
     init(viewModel: ProductViewModel) {
         self.viewModel = viewModel
     }
+    
+    // MARK: - View
     
     var body: some View {
         HStack {
             Text(viewModel.product.name)
                 .bold()
             Spacer()
-            Text("\(viewModel.count) " + viewModel.unitPlural)
+            Text("\(viewModel.count)" + .space + viewModel.unitPlural)
             Spacer()
             Text(
-                viewModel.totalPrice.formattedAmount + String.space + viewModel.currencyName
+                viewModel.totalPrice.formattedAmount + .space + viewModel.currencyName
             )
         }
         .padding()

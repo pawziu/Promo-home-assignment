@@ -7,12 +7,8 @@
 //
 
 import Foundation
-import SwiftUI
 
-final class Product: Decodable, Identifiable {
-    
-    var id: String { name }
-    
+final class Product: Decodable {
     let name: String
     var priceUSD: Decimal
     let unit: String
@@ -27,6 +23,10 @@ final class Product: Decodable, Identifiable {
         self.unit = unit
         self.imageName = imageName
     }
+}
+
+extension Product: Identifiable {
+     var id: String { name }
 }
 
 extension Product: Hashable {

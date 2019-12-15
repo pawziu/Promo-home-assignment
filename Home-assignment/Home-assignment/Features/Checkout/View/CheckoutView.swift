@@ -10,31 +10,44 @@ import SwiftUI
 import Combine
 
 struct CheckoutView: View {
+    
+    // MARK: - View model
+    
     @ObservedObject var viewModel: CheckoutViewModel
+    
+    // MARK: - Initialiation
     
     init(viewModel: CheckoutViewModel) {
       self.viewModel = viewModel
     }
+    
+    // MARK: - View
     
     var body: some View {
         VStack {
             if viewModel.dataSource.isEmpty {
                 Text("Your basket is empty!")
             } else {
-                List {
-                    checkoutListSection
-                }
-                HStack {
-                    Text("Total")
-                        .padding()
-                    Spacer()
-                    Text(viewModel.totalAmount.formattedAmount + .space + viewModel.currencyName)
-                        .padding()
-                }
-                changeCurrencyButton
+                checkoutView
             }
         }
         .navigationBarTitle("Checkout")
+    }
+    
+    private var checkoutView: some View  {
+        VStack {
+            List {
+                checkoutListSection
+            }
+            HStack {
+                Text("Total")
+                    .padding()
+                Spacer()
+                Text(viewModel.totalAmount.formattedAmount + .space + viewModel.currencyName)
+                    .padding()
+            }
+            changeCurrencyButton
+        }
     }
     
     private var checkoutListSection: some View {

@@ -34,9 +34,12 @@ class API {
             return Fail(error: error).eraseToAnyPublisher()
         }
         
-        let concat = Publishers.Concatenate(prefix: session.dataTaskPublisher(for: URLRequest(url: url)), suffix: Empty(completeImmediately: false))
+        let concatenatedPublishers = Publishers.Concatenate(
+            prefix: session.dataTaskPublisher(for: URLRequest(url: url)),
+            suffix: Empty(completeImmediately: false)
+        )
         
-        return concat
+        return concatenatedPublishers
             .mapError { error in
               APIError.network(description: error.localizedDescription)
             }

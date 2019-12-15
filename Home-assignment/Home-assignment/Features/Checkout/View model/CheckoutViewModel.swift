@@ -10,9 +10,13 @@ import Foundation
 
 final class CheckoutViewModel: ObservableObject {
     
+    // MARK: - Output
+    
     @Published private(set) var dataSource: [ProductViewModel]
     @Published private(set) var totalAmount: Decimal
     @Published private(set) var currencyName: String
+    
+    // MARK: - Initializaton
 
     init(products: [ProductViewModel], totalAmount: Decimal, currencyName: String) {
         self.dataSource = products

@@ -11,7 +11,16 @@ import Combine
 
 final class ProductViewModel: ObservableObject {
     
-    // MARK: - Properties
+    // MARK: - Input
+    func increaseCount() {
+        count += 1
+    }
+    
+    func decreaseCount() {
+        count -= 1
+    }
+    
+    // MARK: - Output
     
     let product: Product
     
@@ -20,16 +29,13 @@ final class ProductViewModel: ObservableObject {
             recalculateTotalPrice()
         }
     }
-
     @Published var currencyName: String
-    
     @Published private(set) var count: Int {
         didSet {
             if count < 0 { count = 0 }
             recalculateTotalPrice()
         }
     }
-    
     @Published private(set) var totalPrice: Decimal = 0.0
     
     var unitPlural: String {
@@ -45,15 +51,7 @@ final class ProductViewModel: ObservableObject {
         self.calculatedPrice = product.priceUSD
     }
     
-    // MARK: - Input
-    
-    func increaseCount() {
-        count += 1
-    }
-    
-    func decreaseCount() {
-        count -= 1
-    }
+    // MARK: - Data
     
     private func recalculateTotalPrice() {
         totalPrice = calculatedPrice * Decimal(count)

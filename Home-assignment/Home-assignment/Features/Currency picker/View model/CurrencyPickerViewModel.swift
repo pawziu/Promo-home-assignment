@@ -11,21 +11,28 @@ import Combine
 
 final class CurrencyPickerViewModel: ObservableObject {
     
-    @Published var currencies: [Currency]
+    // MARK: - Output
+    
+    @Published var currencies: [Currency] = []
     @Published var selectedCurrency: Currency
+    
+    // MARK: - Dependencies
     
     private let currencyExchange: CurrencyExchanging
     
+    // MARK: - Properties
+    
     private var disposables = Set<AnyCancellable>()
+    
+    // MARK: - Initialization
 
     init(currencyExchange: CurrencyExchanging = CurrencyExchange.shared) {
         self.currencyExchange = currencyExchange
-        self.currencies = []
         self.selectedCurrency = currencyExchange.currentCurrency
         setupBindings()
     }
     
-    // MARK: - Setup Bindings
+    // MARK: - Bindings
     
     private func setupBindings() {
         currencyExchange.availableCurrencies

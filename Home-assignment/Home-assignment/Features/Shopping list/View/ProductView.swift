@@ -9,33 +9,49 @@
 import SwiftUI
 
 struct ProductView: View {
+    
+    private enum Configuration {
+        static var imageRadius: CGFloat { 70.0 }
+        static var productNameFontSize: CGFloat { 25.0 }
+    }
+    
+    // MARK: - View model
+    
     @ObservedObject private var viewModel: ProductViewModel
+    
+    // MARK: - Initialization
     
     init(viewModel: ProductViewModel) {
         self.viewModel = viewModel
     }
     
+    // MARK: - View
+    
     var body: some View {
         HStack {
             CircleImage(imageName: viewModel.product.imageName)
-                .frame(width: 70.0, height: 70.0)
+                .frame(width: Configuration.imageRadius, height: Configuration.imageRadius)
             VStack(alignment: .leading) {
                 Text(viewModel.product.name)
                     .bold()
-                    .font(.system(size: 25.0))
-                Text(viewModel.calculatedPrice.formattedAmount + String.space + viewModel.currencyName)
+                    .font(.system(size: Configuration.productNameFontSize))
+                Text(viewModel.calculatedPrice.formattedAmount + .space + viewModel.currencyName)
                 Text(viewModel.product.unit)
                     .font(.footnote)
                     .foregroundColor(.gray)
             }
                 .padding(.leading)
+            
             Spacer()
+            
             Button("-") {
                 self.viewModel.decreaseCount()
             }
                 .font(.largeTitle)
                 .padding(.leading)
+            
             Text("\(viewModel.count)")
+            
             Button("+") {
                 self.viewModel.increaseCount()
             }
