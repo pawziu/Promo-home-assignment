@@ -77,11 +77,7 @@ struct ShoppingListView: View {
     }
     
     private var checkoutViewModel: CheckoutViewModel {
-        CheckoutViewModel(
-            products: viewModel.checkoutItems,
-            totalAmount: viewModel.totalAmount,
-            currencyName: viewModel.currencyName
-        )
+        CheckoutViewModel(products: viewModel.checkoutItems)
     }
     
     private var changeCurrencyButton: some View {
