@@ -95,7 +95,7 @@ final class CurrencyExchange: CurrencyExchanging {
             .subscribe(currentExchangeRateSubject)
             .store(in: &disposables)
         
-        let availableCurrencies = loadDataSubject
+        loadDataSubject
             .flatMap { [weak self] _ -> AnyPublisher<SupportedExchangeRatesPairs, APIError> in
                 guard let self = self else { return Fail(error: APIError.unknown).eraseToAnyPublisher() }
                 return self.getCurrentExchangePairs()
@@ -109,7 +109,8 @@ final class CurrencyExchange: CurrencyExchanging {
                 self?.exchangeAvailableSubject.send(true)
             })
             .share()
-            .eraseToAnyPublisher()
+            .subscribe(availableCurrenciesSubject)
+            .store(in: &disposables)
         
         let exchangeRate = Publishers
             .Merge(
@@ -135,35 +136,12 @@ final class CurrencyExchange: CurrencyExchanging {
             .share()
             .eraseToAnyPublisher()
         
-        bindAvailableCurrencies(availableCurrencies)
-        bindExchangeRate(exchangeRate)
-        bindCurrencySubject(exchangeRate)
-    }
-    
-    private func bindAvailableCurrencies(_ availableCurrencies: AnyPublisher<[Currency], Never>) {
-        availableCurrencies
-            .handleEvents(receiveCompletion: { [weak self] _ in
-                self?.bindAvailableCurrencies(availableCurrencies)
-            })
-            .subscribe(availableCurrenciesSubject)
-            .store(in: &disposables)
-    }
-    
-    private func bindExchangeRate(_ exchangeRate: AnyPublisher<Decimal, Never>) {
         exchangeRate
-            .handleEvents(receiveCompletion: { [weak self] _ in
-                self?.bindExchangeRate(exchangeRate)
-            })
             .subscribe(currentExchangeRateSubject)
             .store(in: &disposables)
-    }
-    
-    private func bindCurrencySubject(_ exchangeRate: AnyPublisher<Decimal, Never>) {
+        
         exchangeRate
             .map { _ in return self.chosenCurrencySubject.value }
-            .handleEvents(receiveCompletion: { [weak self] _ in
-                self?.bindCurrencySubject(exchangeRate)
-            })
             .subscribe(currentAvailableCurrencySubject)
             .store(in: &disposables)
     }
