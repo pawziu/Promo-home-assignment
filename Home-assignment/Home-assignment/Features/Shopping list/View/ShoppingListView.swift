@@ -36,7 +36,7 @@ struct ShoppingListView: View {
                 basketLabel
             }
             .buttonStyle(BorderlessButtonStyle())  
-            .navigationBarTitle("shoppingList.navigationTitle")
+            .navigationBarTitle("shoppingList.navigationTitle", displayMode: .inline)
         }
     }
     
