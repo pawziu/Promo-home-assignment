@@ -17,6 +17,7 @@ struct CurrencyPickerView: View {
     // MARK: - Properties
     
     @Environment(\.presentationMode) var presentation
+    @State private var showActionSheet: Bool = false
     
     // MARK: - Initialization
     
@@ -38,6 +39,18 @@ struct CurrencyPickerView: View {
             }
         }
         .navigationBarTitle("currency.change")
+        .onAppear {
+            self.showActionSheet = !self.viewModel.exchangeAvailable
+        }
+        .alert(isPresented: $showActionSheet) {
+            Alert(
+                title: Text("currency.notAvailable.title"),
+                message: Text("currency.notAvailable.subtitle"),
+                dismissButton: .default(Text("common.ok")) {
+                    self.presentation.wrappedValue.dismiss()
+                }
+            )
+        }
     }
 }
 

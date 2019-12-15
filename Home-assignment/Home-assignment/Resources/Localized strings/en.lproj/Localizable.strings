@@ -7,9 +7,12 @@
 */
 
 "common.per" = "per";
+"common.ok" = "OK";
 
-"shoppingList.navigationTitle" = "Shopping time 🛍";
+"shoppingList.navigationTitle" = "Grocery";
 "basket.total" = "Total";
 "checkout" = "Checkout";
 "basket.empty" = "Your basket is empty 🛒";
 "currency.change" = "Change currency";
+"currency.notAvailable.title" = "Exchange not available";
+"currency.notAvailable.subtitle" = "Sorry, currency exchange is not available at the moment.";

@@ -15,6 +15,7 @@ final class CurrencyPickerViewModel: ObservableObject {
     
     @Published var currencies: [Currency] = []
     @Published var selectedCurrency: Currency
+    @Published var exchangeAvailable: Bool = false
     
     // MARK: - Dependencies
     
@@ -39,6 +40,13 @@ final class CurrencyPickerViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] currencies in
                 self?.currencies = currencies
+            })
+            .store(in: &disposables)
+        
+        currencyExchange.exchangeAvailable
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] exchangeAvailable in
+                self?.exchangeAvailable = exchangeAvailable
             })
             .store(in: &disposables)
         
