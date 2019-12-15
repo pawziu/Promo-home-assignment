@@ -36,7 +36,7 @@ struct ShoppingListView: View {
                 basketLabel
             }
             .buttonStyle(BorderlessButtonStyle())  
-            .navigationBarTitle("shoppingList.title")
+            .navigationBarTitle("shoppingList.navigationTitle")
         }
     }
     
@@ -49,7 +49,7 @@ struct ShoppingListView: View {
     private var basketLabel: some View {
         VStack {
             HStack {
-                Text("Total")
+                Text("basket.total")
                     .padding()
                 Spacer()
                 Text(viewModel.totalAmount.formattedAmount + .space + viewModel.currencyName)
@@ -71,7 +71,7 @@ struct ShoppingListView: View {
     
     private var checkoutButton: some View {
         NavigationLink(destination: CheckoutView(viewModel: checkoutViewModel)) {
-            Text("Checkout")
+            Text("checkout")
                 .padding()
         }
     }
@@ -86,7 +86,7 @@ struct ShoppingListView: View {
     
     private var changeCurrencyButton: some View {
         NavigationLink(destination: CurrencyPickerView(viewModel: CurrencyPickerViewModel())) {
-            Text("Change currency")
+            Text("currency.change")
                 .padding()
         }
     }

@@ -23,7 +23,7 @@ protocol CurrencyExchanging {
 final class CurrencyExchange: CurrencyExchanging {
     
     private enum Configuration {
-        static var currencyRefreshTime: TimeInterval { 10.0 }
+        static var currencyRefreshTime: TimeInterval { 5.0 }
     }
     
     // MARK: - Instance

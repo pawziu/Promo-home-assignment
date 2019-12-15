@@ -8,4 +8,8 @@
 
 "common.per" = "per";
 
-"shoppingList.title" = "Shopping";
+"shoppingList.navigationTitle" = "Shopping time 🛍";
+"basket.total" = "Total";
+"checkout" = "Checkout";
+"basket.empty" = "Your basket is empty 🛒";
+"currency.change" = "Change currency";

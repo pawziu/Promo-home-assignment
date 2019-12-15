@@ -37,7 +37,7 @@ struct CurrencyPickerView: View {
                 }
             }
         }
-        .navigationBarTitle("Change currency")
+        .navigationBarTitle("currency.change")
     }
 }
 

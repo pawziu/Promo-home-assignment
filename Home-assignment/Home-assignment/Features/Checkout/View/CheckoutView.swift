@@ -26,12 +26,12 @@ struct CheckoutView: View {
     var body: some View {
         VStack {
             if viewModel.dataSource.isEmpty {
-                Text("Your basket is empty!")
+                Text("basket.empty")
             } else {
                 checkoutView
             }
         }
-        .navigationBarTitle("Checkout")
+        .navigationBarTitle("checkout")
     }
     
     private var checkoutView: some View  {
@@ -40,7 +40,7 @@ struct CheckoutView: View {
                 checkoutListSection
             }
             HStack {
-                Text("Total")
+                Text("basket.total")
                     .padding()
                 Spacer()
                 Text(viewModel.totalAmount.formattedAmount + .space + viewModel.currencyName)
@@ -58,7 +58,7 @@ struct CheckoutView: View {
     
     private var changeCurrencyButton: some View {
         NavigationLink(destination: CurrencyPickerView(viewModel: CurrencyPickerViewModel())) {
-            Text("Change currency")
+            Text("currency.change")
                 .padding()
         }
     }
