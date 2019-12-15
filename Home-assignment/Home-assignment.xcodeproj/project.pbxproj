@@ -20,6 +20,7 @@
 		E5638FD823A50AD600CF067F /* CurrencyPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5638FD723A50AD600CF067F /* CurrencyPickerViewModel.swift */; };
 		E5638FDA23A51DE100CF067F /* CheckoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5638FD923A51DE100CF067F /* CheckoutView.swift */; };
 		E5638FDC23A51DEB00CF067F /* CheckoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5638FDB23A51DEB00CF067F /* CheckoutViewModel.swift */; };
+		E5655C0823A658AD0073342C /* CheckoutProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5655C0723A658AD0073342C /* CheckoutProductView.swift */; };
 		E568E78023A4B97500BE9FE3 /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E568E77F23A4B97500BE9FE3 /* ProductView.swift */; };
 		E5A31E3223A4069900222AC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A31E3123A4069900222AC8 /* AppDelegate.swift */; };
 		E5A31E3423A4069900222AC8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A31E3323A4069900222AC8 /* SceneDelegate.swift */; };
@@ -37,6 +38,7 @@
 		E5C0147123A4DD8D000C7393 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0147023A4DD8D000C7393 /* API.swift */; };
 		E5C0147423A4E390000C7393 /* SupportedExchangeRatesPairs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0147323A4E390000C7393 /* SupportedExchangeRatesPairs.swift */; };
 		E5C0147823A4E3D3000C7393 /* ExchangeRatesListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0147723A4E3D3000C7393 /* ExchangeRatesListRequest.swift */; };
+		E5D769AC23A5644D00DAA735 /* ProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D769AB23A5644D00DAA735 /* ProductViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,7 @@
 		E5638FD723A50AD600CF067F /* CurrencyPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerViewModel.swift; sourceTree = "<group>"; };
 		E5638FD923A51DE100CF067F /* CheckoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutView.swift; sourceTree = "<group>"; };
 		E5638FDB23A51DEB00CF067F /* CheckoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewModel.swift; sourceTree = "<group>"; };
+		E5655C0723A658AD0073342C /* CheckoutProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutProductView.swift; sourceTree = "<group>"; };
 		E568E77F23A4B97500BE9FE3 /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
 		E5A31E2E23A4069900222AC8 /* Home-assignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Home-assignment.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5A31E3123A4069900222AC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -84,6 +87,7 @@
 		E5C0147023A4DD8D000C7393 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		E5C0147323A4E390000C7393 /* SupportedExchangeRatesPairs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedExchangeRatesPairs.swift; sourceTree = "<group>"; };
 		E5C0147723A4E3D3000C7393 /* ExchangeRatesListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRatesListRequest.swift; sourceTree = "<group>"; };
+		E5D769AB23A5644D00DAA735 /* ProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				E546FB5423A4B0DF00D40772 /* ShoppingListViewModel.swift */,
+				E5D769AB23A5644D00DAA735 /* ProductViewModel.swift */,
 			);
 			path = "View model";
 			sourceTree = "<group>";
@@ -171,9 +176,9 @@
 		E5296D2123A43C75005FDE41 /* Shopping list */ = {
 			isa = PBXGroup;
 			children = (
-				E511312623A4496E004CAF22 /* Model */,
 				E511312A23A44AD9004CAF22 /* View model */,
 				E511312923A44AC7004CAF22 /* View */,
+				E511312623A4496E004CAF22 /* Model */,
 			);
 			path = "Shopping list";
 			sourceTree = "<group>";
@@ -231,8 +236,8 @@
 		E5638FD323A5093300CF067F /* Currency picker */ = {
 			isa = PBXGroup;
 			children = (
-				E5638FD523A50A6500CF067F /* CurrencyPickerView.swift */,
-				E5638FD723A50AD600CF067F /* CurrencyPickerViewModel.swift */,
+				E5655C0423A658720073342C /* View model */,
+				E5655C0323A6586E0073342C /* View */,
 			);
 			path = "Currency picker";
 			sourceTree = "<group>";
@@ -240,10 +245,43 @@
 		E5638FD423A5093F00CF067F /* Checkout */ = {
 			isa = PBXGroup;
 			children = (
-				E5638FD923A51DE100CF067F /* CheckoutView.swift */,
-				E5638FDB23A51DEB00CF067F /* CheckoutViewModel.swift */,
+				E5655C0523A658880073342C /* View model */,
+				E5655C0623A6588F0073342C /* View */,
 			);
 			path = Checkout;
+			sourceTree = "<group>";
+		};
+		E5655C0323A6586E0073342C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E5638FD523A50A6500CF067F /* CurrencyPickerView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E5655C0423A658720073342C /* View model */ = {
+			isa = PBXGroup;
+			children = (
+				E5638FD723A50AD600CF067F /* CurrencyPickerViewModel.swift */,
+			);
+			path = "View model";
+			sourceTree = "<group>";
+		};
+		E5655C0523A658880073342C /* View model */ = {
+			isa = PBXGroup;
+			children = (
+				E5638FDB23A51DEB00CF067F /* CheckoutViewModel.swift */,
+			);
+			path = "View model";
+			sourceTree = "<group>";
+		};
+		E5655C0623A6588F0073342C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E5638FD923A51DE100CF067F /* CheckoutView.swift */,
+				E5655C0723A658AD0073342C /* CheckoutProductView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		E5A31E2523A4069900222AC8 = {
@@ -465,11 +503,13 @@
 			files = (
 				E568E78023A4B97500BE9FE3 /* ProductView.swift in Sources */,
 				E5296D1923A43817005FDE41 /* StringExtensions.swift in Sources */,
+				E5D769AC23A5644D00DAA735 /* ProductViewModel.swift in Sources */,
 				E5A31E3223A4069900222AC8 /* AppDelegate.swift in Sources */,
 				E5C0147823A4E3D3000C7393 /* ExchangeRatesListRequest.swift in Sources */,
 				E5638FD623A50A6500CF067F /* CurrencyPickerView.swift in Sources */,
 				E511312823A44980004CAF22 /* Product.swift in Sources */,
 				E5C0147423A4E390000C7393 /* SupportedExchangeRatesPairs.swift in Sources */,
+				E5655C0823A658AD0073342C /* CheckoutProductView.swift in Sources */,
 				E5638FD823A50AD600CF067F /* CurrencyPickerViewModel.swift in Sources */,
 				E5638FD023A4F73100CF067F /* ExchangeRate.swift in Sources */,
 				E5C0147123A4DD8D000C7393 /* API.swift in Sources */,

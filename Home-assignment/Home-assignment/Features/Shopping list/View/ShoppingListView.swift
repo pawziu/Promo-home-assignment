@@ -11,9 +11,6 @@ import Combine
 
 struct ShoppingListView: View {
     @ObservedObject var viewModel: ShoppingListViewModel
-    
-    @State private var isCurrencyPickerPresented = false
-    @State private var pickedCurrency: Currency = .default
 
     init(viewModel: ShoppingListViewModel) {
       self.viewModel = viewModel
@@ -27,39 +24,59 @@ struct ShoppingListView: View {
                 }
                 basketLabel
             }
+            .buttonStyle(BorderlessButtonStyle())  
             .navigationBarTitle("shoppingList.title")
         }
     }
     
     private var shoppingListSection: some View {
       Section {
-        ForEach(viewModel.dataSource, content: ProductView.init(item:))
+        ForEach(viewModel.dataSource, content: ProductView.init(viewModel:))
       }
     }
     
     private var basketLabel: some View {
-        HStack {
-            Text("🧺 Total")
-                .font(.largeTitle)
-                .padding()
-            Spacer()
-            Text(viewModel.totalAmount.formattedAmount)
-                .padding()
-            checkoutButton
+        VStack {
+            HStack {
+                Text("Total")
+                    .padding()
+                Spacer()
+                Text(viewModel.totalAmount.formattedAmount + .space + viewModel.currencyName)
+                    .padding()
+            }
+            HStack {
+                changeCurrencyButton
+                    .padding(.leading)
+                Spacer()
+                checkoutButton
+                    .padding(.trailing)
+            }
         }
-        .background(Color.gray.opacity(0.3))
+        .background(Color.gray.opacity(0.1).blur(radius: 5.0))
     }
     
     private var checkoutButton: some View {
-        NavigationLink(destination: ShoppingListView.checkoutDestination)  {
+        NavigationLink(destination: CheckoutView(viewModel: checkoutViewModel)) {
             Text("Checkout")
                 .padding()
         }
     }
     
-    static private var checkoutDestination: some View {
-        CheckoutView(viewModel: CheckoutViewModel())
+    private var checkoutViewModel: CheckoutViewModel {
+        CheckoutViewModel(
+            products: viewModel.checkoutItems,
+            totalAmount: viewModel.totalAmount,
+            currencyName: viewModel.currencyName
+        )
     }
+    
+    private var changeCurrencyButton: some View {
+        NavigationLink(destination: CurrencyPickerView(viewModel: CurrencyPickerViewModel())) {
+            Text("Change currency")
+                .padding()
+        }
+    }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

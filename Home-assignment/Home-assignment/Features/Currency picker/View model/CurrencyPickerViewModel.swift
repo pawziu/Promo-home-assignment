@@ -12,7 +12,7 @@ import Combine
 final class CurrencyPickerViewModel: ObservableObject {
     
     @Published var currencies: [Currency]
-    @Published var selectedCurrency: Currency = Currency.default
+    @Published var selectedCurrency: Currency
     
     private let currencyExchange: CurrencyExchanging
     
@@ -20,26 +20,26 @@ final class CurrencyPickerViewModel: ObservableObject {
 
     init(currencyExchange: CurrencyExchanging = CurrencyExchange.shared) {
         self.currencyExchange = currencyExchange
-        self.currencies = currencyExchange.availableCurrencies
+        self.currencies = []
+        self.selectedCurrency = currencyExchange.currentCurrency
         setupBindings()
     }
     
     // MARK: - Setup Bindings
     
     private func setupBindings() {
+        currencyExchange.availableCurrencies
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] currencies in
+                self?.currencies = currencies
+            })
+            .store(in: &disposables)
+        
         $selectedCurrency
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] currency in
                 self?.currencyExchange.setCurrency(currency)
             })
             .store(in: &disposables)
-        
-        currencyExchange.currentAvailableCurrency
-            .receive(on: RunLoop.main)
-            .sink(receiveValue: { [weak self] currency in
-                self?.selectedCurrency = currency
-            })
-            .store(in: &disposables)
-    
     }
 }

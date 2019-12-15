@@ -9,13 +9,6 @@
 import Foundation
 import Combine
 
-struct ProductItem: Identifiable{
-    let product: Product
-    let currencyName: String
-    
-    var id: String { product.id }
-}
-
 final class ShoppingListViewModel: ObservableObject {
     
     // MARK: - Dependencies
@@ -25,40 +18,60 @@ final class ShoppingListViewModel: ObservableObject {
     
     // MARK: - Properties
     
-    private var initialProductList: [Product]
+    private var initialProductList: [ProductViewModel]
     
-    @Published private(set) var dataSource: [ProductItem] = []
-    @Published private(set) var totalAmount: Decimal = 0.0
+    @Published private(set) var dataSource: [ProductViewModel] = []
+    @Published private(set) var checkoutItems: [ProductViewModel] = []
+    @Published private(set) var totalAmount: Decimal = .zero
     @Published private(set) var currencyName: String = Currency.default.name
     
     private var disposables = Set<AnyCancellable>()
+    private var dataSourceDisposables = Set<AnyCancellable>()
     
     // MARK: - Initialization
     
     init(jsonLoader: JSONLoading = JSONLoader()) {
         self.jsonLoader = jsonLoader
-        self.initialProductList = jsonLoader.load("ProductData.json") ?? []
+        self.initialProductList = []
         setupBindings()
+        self.initialProductList = loadData()
+    }
+    
+    private func loadData() -> [ProductViewModel] {
+        guard let data: [Product] = jsonLoader.load("ProductData.json") else { return [] }
+        return data.map { ProductViewModel(product: $0, currencyName: Currency.default.name) }
     }
     
     // MARK: - Bindings
     
     private func setupBindings() {
-        currencyExchange.currentAvailableCurrency
+        currencyExchange.chosenCurrency
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] currency in
                 guard let self = self else { return }
                 self.dataSource = self.initialProductList
                     .map {
-                        ProductItem(
-                            product: Product(
-                                product: $0,
-                                newPrice: self.currencyExchange.exchange($0.priceUSD)
-                            ),
-                            currencyName: currency.name
-                        )
+                        $0.calculatedPrice = currency == .default ? $0.product.priceUSD : self.currencyExchange.exchange($0.product.priceUSD)
+                        $0.currencyName = currency.name
+                        self.currencyName = currency.name
+                        return $0
                     }
+                self.dataSourceDisposables = []
+                self.dataSource.forEach {
+                    $0.$totalPrice
+                    .receive(on: RunLoop.main)
+                    .sink(receiveValue: { [weak self] _ in
+                        self?.recalculateTotalPrice()
+                    })
+                    .store(in: &self.dataSourceDisposables)
+                }
             })
             .store(in: &disposables)
+    }
+    
+    private func recalculateTotalPrice() {
+        totalAmount = .zero
+        dataSource.forEach { totalAmount += $0.totalPrice }
+        checkoutItems = dataSource.filter { $0.count != 0 }
     }
 }

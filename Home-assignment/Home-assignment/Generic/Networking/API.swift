@@ -33,7 +33,10 @@ class API {
             let error = APIError.network(description: "Couldn't create URL")
             return Fail(error: error).eraseToAnyPublisher()
         }
-        return session.dataTaskPublisher(for: URLRequest(url: url))
+        
+        let concat = Publishers.Concatenate(prefix: session.dataTaskPublisher(for: URLRequest(url: url)), suffix: Empty(completeImmediately: false))
+        
+        return concat
             .mapError { error in
               APIError.network(description: error.localizedDescription)
             }

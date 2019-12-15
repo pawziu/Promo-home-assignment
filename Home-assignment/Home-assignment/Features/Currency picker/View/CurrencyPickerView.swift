@@ -11,20 +11,24 @@ import SwiftUI
 struct CurrencyPickerView: View {
     @ObservedObject var viewModel: CurrencyPickerViewModel
     
+    @Environment(\.presentationMode) var presentation
+    
     init(viewModel: CurrencyPickerViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
-        Form {
+        List {
             Section {
-                Picker("Currency", selection: $viewModel.selectedCurrency) {
-                    ForEach(viewModel.currencies) {
-                        Text($0.name).tag($0)
+                ForEach(viewModel.currencies) { currency in
+                    Button(currency.name) {
+                        self.viewModel.selectedCurrency = currency
+                        self.presentation.wrappedValue.dismiss()
                     }
                 }
             }
         }
+        .navigationBarTitle("Change currency")
     }
 }
 

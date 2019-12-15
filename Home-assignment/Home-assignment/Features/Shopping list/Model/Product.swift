@@ -9,12 +9,12 @@
 import Foundation
 import SwiftUI
 
-struct Product: Decodable, Identifiable {
+final class Product: Decodable, Identifiable {
     
     var id: String { name }
     
     let name: String
-    let priceUSD: Decimal
+    var priceUSD: Decimal
     let unit: String
     let imageName: String
     
@@ -26,20 +26,6 @@ struct Product: Decodable, Identifiable {
         self.priceUSD = priceUSD
         self.unit = unit
         self.imageName = imageName
-    }
-    
-    init(product: Product, newPrice: Decimal) {
-        self.name = product.name
-        self.priceUSD = newPrice
-        self.unit = product.unit
-        self.imageName = product.imageName
-    }
-
-    enum Category: String, Codable {
-        case name
-        case priceUSD
-        case unit
-        case imageName
     }
 }
 
