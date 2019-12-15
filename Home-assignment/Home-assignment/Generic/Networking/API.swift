@@ -9,7 +9,11 @@
 import Foundation
 import Combine
 
-class API {
+protocol APIProtocol {
+    func call<T: Decodable>(with request: Request) -> AnyPublisher<T, APIError>
+}
+
+class API: APIProtocol {
     
     // MARK: - Instance
     
@@ -34,12 +38,7 @@ class API {
             return Fail(error: error).eraseToAnyPublisher()
         }
         
-        let concatenatedPublishers = Publishers.Concatenate(
-            prefix: session.dataTaskPublisher(for: URLRequest(url: url)),
-            suffix: Empty(completeImmediately: false)
-        )
-        
-        return concatenatedPublishers
+        return session.dataTaskPublisher(for: URLRequest(url: url))
             .mapError { error in
               APIError.network(description: error.localizedDescription)
             }

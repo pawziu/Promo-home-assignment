@@ -43,6 +43,7 @@ final class CurrencyPickerViewModel: ObservableObject {
             .store(in: &disposables)
         
         $selectedCurrency
+            .removeDuplicates()
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] currency in
                 self?.currencyExchange.setCurrency(currency)
