@@ -28,8 +28,8 @@
 		E5A31E3823A4069B00222AC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5A31E3723A4069B00222AC8 /* Assets.xcassets */; };
 		E5A31E3B23A4069B00222AC8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5A31E3A23A4069B00222AC8 /* Preview Assets.xcassets */; };
 		E5A31E3E23A4069B00222AC8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5A31E3C23A4069B00222AC8 /* LaunchScreen.storyboard */; };
-		E5A31E4923A4069B00222AC8 /* Home_assignmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A31E4823A4069B00222AC8 /* Home_assignmentTests.swift */; };
 		E5A5EFE223A7E3DE006999E4 /* ExchangeRatesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A5EFE123A7E3DE006999E4 /* ExchangeRatesManager.swift */; };
+		E5A5EFE523A7E887006999E4 /* ProductViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A5EFE423A7E887006999E4 /* ProductViewModelTests.swift */; };
 		E5C0146023A4BF74000C7393 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0145F23A4BF74000C7393 /* CircleImage.swift */; };
 		E5C0146223A4D01E000C7393 /* DecimalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0146123A4D01E000C7393 /* DecimalExtensions.swift */; };
 		E5C0146423A4D477000C7393 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0146323A4D477000C7393 /* Currency.swift */; };
@@ -77,9 +77,9 @@
 		E5A31E3D23A4069B00222AC8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E5A31E3F23A4069B00222AC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5A31E4423A4069B00222AC8 /* Home-assignmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Home-assignmentTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E5A31E4823A4069B00222AC8 /* Home_assignmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home_assignmentTests.swift; sourceTree = "<group>"; };
 		E5A31E4A23A4069B00222AC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5A5EFE123A7E3DE006999E4 /* ExchangeRatesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRatesManager.swift; sourceTree = "<group>"; };
+		E5A5EFE423A7E887006999E4 /* ProductViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewModelTests.swift; sourceTree = "<group>"; };
 		E5C0145F23A4BF74000C7393 /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		E5C0146123A4D01E000C7393 /* DecimalExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalExtensions.swift; sourceTree = "<group>"; };
 		E5C0146323A4D477000C7393 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
@@ -330,10 +330,18 @@
 		E5A31E4723A4069B00222AC8 /* Home-assignmentTests */ = {
 			isa = PBXGroup;
 			children = (
-				E5A31E4823A4069B00222AC8 /* Home_assignmentTests.swift */,
+				E5A5EFE323A7E86F006999E4 /* Features */,
 				E5A31E4A23A4069B00222AC8 /* Info.plist */,
 			);
 			path = "Home-assignmentTests";
+			sourceTree = "<group>";
+		};
+		E5A5EFE323A7E86F006999E4 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				E5A5EFE423A7E887006999E4 /* ProductViewModelTests.swift */,
+			);
+			path = Features;
 			sourceTree = "<group>";
 		};
 		E5C0145D23A4BF60000C7393 /* Generic */ = {
@@ -538,7 +546,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5A31E4923A4069B00222AC8 /* Home_assignmentTests.swift in Sources */,
+				E5A5EFE523A7E887006999E4 /* ProductViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
