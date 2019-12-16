@@ -31,4 +31,10 @@ enum Mocks {
         ]
     }
     static var currencyExchangeMock: CurrencyExchangeMock { CurrencyExchangeMock() }
+    static var availableCurrencies: [Currency] {
+        [
+            .default,
+            Mocks.currencyPLN
+        ]
+    }
 }

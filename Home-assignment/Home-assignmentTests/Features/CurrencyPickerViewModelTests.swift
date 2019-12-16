@@ -7,27 +7,50 @@
 //
 
 import XCTest
+@testable import Home_assignment
 
 class CurrencyPickerViewModelTests: XCTestCase {
+    
+    private var currencyExchangeMock: CurrencyExchangeMock!
+    private var systemUnderTests: CurrencyPickerViewModel!
 
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        currencyExchangeMock = Mocks.currencyExchangeMock
+        systemUnderTests = CurrencyPickerViewModel(currencyExchange: currencyExchangeMock)
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        currencyExchangeMock = nil
+        systemUnderTests = nil
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func testCurrenciesList() {
+        // When
+        let testReceive = expectedResult(publisher: systemUnderTests.$currencies, expectedResponse: Mocks.availableCurrencies)
+        
+        // Then
+        wait(for: testReceive.expectations)
+        testReceive.cancellable?.cancel()
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testSelectedCurrency() {
+        // When
+        let testReceive = expectedResult(publisher: currencyExchangeMock.chosenCurrency, expectedResponse: Mocks.currencyPLN)
+        
+        // Then
+        systemUnderTests.selectedCurrency = Mocks.currencyPLN
+        
+        // Then
+        wait(for: testReceive.expectations)
+        testReceive.cancellable?.cancel()
     }
-
+    
+    func testExchangeAvailable() {
+        // When
+        let testReceive = expectedResult(publisher: systemUnderTests.$exchangeAvailable, expectedResponse: true)
+        
+        // Then
+        wait(for: testReceive.expectations)
+        testReceive.cancellable?.cancel()
+    }
 }

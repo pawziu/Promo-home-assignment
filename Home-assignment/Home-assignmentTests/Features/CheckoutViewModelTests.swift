@@ -40,14 +40,14 @@ class CheckoutViewModelTests: XCTestCase {
     }
 
     func testCurrencyChange() {
-        // When
+        // Given
         let testReceive = expectedResult(publisher: systemUnderTests.$currencyName, expectedResponse: Mocks.currencyPLN.name)
         
-        //When
+        // When
         currencyExchangeMock.setCurrency(Mocks.currencyPLN)
         
         // Then
-        wait(for: testReceive.expectations, timeout: testTimeout)
+        wait(for: testReceive.expectations)
         testReceive.cancellable?.cancel()
     }
 }

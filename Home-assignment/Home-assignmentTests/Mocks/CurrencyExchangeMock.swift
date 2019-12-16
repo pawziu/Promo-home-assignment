@@ -15,7 +15,7 @@ final class CurrencyExchangeMock: CurrencyExchanging {
     // MARK: - Protocol
     
     lazy var exchangeAvailable: AnyPublisher<Bool, Never> = Just(true).eraseToAnyPublisher()
-    lazy var availableCurrencies: AnyPublisher<[Currency], Never> = Just([.default, Mocks.currencyPLN]).eraseToAnyPublisher()
+    var availableCurrencies: AnyPublisher<[Currency], Never> { Just(Mocks.availableCurrencies).eraseToAnyPublisher() }
     var currentCurrency: Currency { .default }
     lazy var chosenCurrency: AnyPublisher<Currency, Never> = currentCurrencySubject.eraseToAnyPublisher()
     
