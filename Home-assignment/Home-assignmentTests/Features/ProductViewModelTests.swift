@@ -11,20 +11,10 @@ import XCTest
 
 class ProductViewModelTests: XCTestCase {
     
-    private lazy var price: Decimal = 20.0
-    private lazy var unit: String = "bag"
-    private lazy var product = Product(
-        name: "Peas",
-        priceUSD: price,
-        unit: unit,
-        imageName: .empty
-    )
-    private lazy var currencyName = "USD"
-    
     private var systemUnderTests: ProductViewModel!
 
     override func setUp() {
-        systemUnderTests = ProductViewModel(product: product, currencyName: currencyName)
+        systemUnderTests = ProductViewModel(product: Mocks.product, currencyName: Mocks.currencyName)
     }
 
     override func tearDown() {
@@ -40,7 +30,7 @@ class ProductViewModelTests: XCTestCase {
         
         // Then
         XCTAssert(systemUnderTests.count == 2)
-        XCTAssert(systemUnderTests.totalPrice == price * 2)
+        XCTAssert(systemUnderTests.totalPrice == Mocks.price * 2)
     }
     
     func testCounterWithMultipleDecreases() {
@@ -94,6 +84,6 @@ class ProductViewModelTests: XCTestCase {
         systemUnderTests.increaseCount()
         
         // Then
-        XCTAssert(systemUnderTests.unitPlural == unit + "s")
+        XCTAssert(systemUnderTests.unitPlural == Mocks.unit + "s")
     }
 }

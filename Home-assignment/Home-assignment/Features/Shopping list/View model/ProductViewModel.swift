@@ -49,6 +49,7 @@ final class ProductViewModel: ObservableObject {
         self.currencyName = currencyName
         self.count = count
         self.calculatedPrice = product.priceUSD
+        recalculateTotalPrice()
     }
     
     // MARK: - Data
