@@ -20,10 +20,11 @@ enum Mocks {
             imageName: .empty
         )
     }
+    static var products: [Product] { [product, product, product] }
     static var currencyName: String { "USD" }
     static var currencyPLN: Currency { Currency(name: "PLN") }
     static var currencyPLNRate: Decimal { 4.0 }
-    static var products: [ProductViewModel] {
+    static var productsViewModels: [ProductViewModel] {
         [
             ProductViewModel(product: product, currencyName: currencyName, count: 1),
             ProductViewModel(product: product, currencyName: currencyName, count: 1),

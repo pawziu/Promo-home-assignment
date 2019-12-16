@@ -12,6 +12,7 @@ import Combine
 final class ProductViewModel: ObservableObject {
     
     // MARK: - Input
+    
     func increaseCount() {
         count += 1
     }

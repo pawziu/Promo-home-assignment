@@ -35,6 +35,7 @@
 		E5A5EFEE23A7F0E7006999E4 /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A5EFED23A7F0E7006999E4 /* Mocks.swift */; };
 		E5A5EFF023A7F734006999E4 /* CombineTestUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A5EFEF23A7F734006999E4 /* CombineTestUtilities.swift */; };
 		E5A5EFF323A802BD006999E4 /* CurrencyPickerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A5EFF223A802BD006999E4 /* CurrencyPickerViewModelTests.swift */; };
+		E5A5EFF523A805BB006999E4 /* JSONLoaderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A5EFF423A805BB006999E4 /* JSONLoaderMock.swift */; };
 		E5C0146023A4BF74000C7393 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0145F23A4BF74000C7393 /* CircleImage.swift */; };
 		E5C0146223A4D01E000C7393 /* DecimalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0146123A4D01E000C7393 /* DecimalExtensions.swift */; };
 		E5C0146423A4D477000C7393 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C0146323A4D477000C7393 /* Currency.swift */; };
@@ -90,6 +91,7 @@
 		E5A5EFED23A7F0E7006999E4 /* Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
 		E5A5EFEF23A7F734006999E4 /* CombineTestUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineTestUtilities.swift; sourceTree = "<group>"; };
 		E5A5EFF223A802BD006999E4 /* CurrencyPickerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPickerViewModelTests.swift; sourceTree = "<group>"; };
+		E5A5EFF423A805BB006999E4 /* JSONLoaderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONLoaderMock.swift; sourceTree = "<group>"; };
 		E5C0145F23A4BF74000C7393 /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		E5C0146123A4D01E000C7393 /* DecimalExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecimalExtensions.swift; sourceTree = "<group>"; };
 		E5C0146323A4D477000C7393 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
@@ -352,8 +354,8 @@
 			isa = PBXGroup;
 			children = (
 				E5A5EFE423A7E887006999E4 /* ProductViewModelTests.swift */,
-				E5A5EFEB23A7EFCB006999E4 /* CheckoutViewModelTests.swift */,
 				E5A5EFF223A802BD006999E4 /* CurrencyPickerViewModelTests.swift */,
+				E5A5EFEB23A7EFCB006999E4 /* CheckoutViewModelTests.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -363,6 +365,7 @@
 			children = (
 				E5A5EFED23A7F0E7006999E4 /* Mocks.swift */,
 				E5A5EFE723A7EE0A006999E4 /* CurrencyExchangeMock.swift */,
+				E5A5EFF423A805BB006999E4 /* JSONLoaderMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -581,6 +584,7 @@
 				E5A5EFE523A7E887006999E4 /* ProductViewModelTests.swift in Sources */,
 				E5A5EFE823A7EE0A006999E4 /* CurrencyExchangeMock.swift in Sources */,
 				E5A5EFF323A802BD006999E4 /* CurrencyPickerViewModelTests.swift in Sources */,
+				E5A5EFF523A805BB006999E4 /* JSONLoaderMock.swift in Sources */,
 				E5A5EFEC23A7EFCB006999E4 /* CheckoutViewModelTests.swift in Sources */,
 				E5A5EFEE23A7F0E7006999E4 /* Mocks.swift in Sources */,
 			);

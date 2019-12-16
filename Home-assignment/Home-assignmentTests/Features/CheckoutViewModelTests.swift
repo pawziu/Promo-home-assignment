@@ -18,7 +18,7 @@ class CheckoutViewModelTests: XCTestCase {
     override func setUp() {
         currencyExchangeMock = Mocks.currencyExchangeMock
         systemUnderTests = CheckoutViewModel(
-            products: Mocks.products,
+            products: Mocks.productsViewModels,
             currencyExchange: currencyExchangeMock
         )
     }
@@ -30,7 +30,7 @@ class CheckoutViewModelTests: XCTestCase {
     
     func testInitialTotalAmount() {
         // Given
-        let totalPrice: Decimal = Mocks.products
+        let totalPrice: Decimal = Mocks.productsViewModels
             .reduce(into: 0) { price, product in
                 price += product.totalPrice
             }
