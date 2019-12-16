@@ -26,9 +26,9 @@ enum Mocks {
     static var currencyPLNRate: Decimal { 4.0 }
     static var productsViewModels: [ProductViewModel] {
         [
-            ProductViewModel(product: product, currencyName: currencyName, count: 1),
-            ProductViewModel(product: product, currencyName: currencyName, count: 1),
-            ProductViewModel(product: product, currencyName: currencyName, count: 1)
+            ProductViewModel(product: product, currencyName: currencyName),
+            ProductViewModel(product: product, currencyName: currencyName),
+            ProductViewModel(product: product, currencyName: currencyName)
         ]
     }
     static var currencyExchangeMock: CurrencyExchangeMock { CurrencyExchangeMock() }

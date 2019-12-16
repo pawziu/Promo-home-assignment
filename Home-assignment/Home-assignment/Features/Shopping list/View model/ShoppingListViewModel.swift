@@ -14,7 +14,7 @@ final class ShoppingListViewModel: ObservableObject {
     // MARK: - Dependencies
     
     private let jsonLoader: JSONLoading
-    private let currencyExchange: CurrencyExchanging = CurrencyExchange.shared
+    private let currencyExchange: CurrencyExchanging
     
     // MARK: - Properties
     
@@ -31,8 +31,10 @@ final class ShoppingListViewModel: ObservableObject {
     
     // MARK: - Initialization
     
-    init(jsonLoader: JSONLoading = JSONLoader()) {
+    init(jsonLoader: JSONLoading = JSONLoader(),
+         currencyExchange: CurrencyExchanging = CurrencyExchange.shared) {
         self.jsonLoader = jsonLoader
+        self.currencyExchange = currencyExchange
         setupBindings()
         loadData()
     }

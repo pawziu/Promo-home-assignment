@@ -32,5 +32,5 @@ final class CurrencyExchangeMock: CurrencyExchanging {
     
     // MARK: - Properties
     
-    private let currentCurrencySubject = PassthroughSubject<Currency, Never>()
+    private let currentCurrencySubject = CurrentValueSubject<Currency, Never>(.default)
 }

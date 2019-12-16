@@ -63,3 +63,13 @@ final class ProductViewModel: ObservableObject {
 extension ProductViewModel: Identifiable {
     var id: String { product.id }
 }
+
+extension ProductViewModel: Equatable {
+    static func == (lhs: ProductViewModel, rhs: ProductViewModel) -> Bool {
+        return lhs.id == rhs.id
+            && lhs.count == rhs.count
+            && lhs.currencyName == rhs.currencyName
+            && lhs.calculatedPrice == rhs.calculatedPrice
+            && lhs.totalPrice == rhs.totalPrice
+    }
+}
