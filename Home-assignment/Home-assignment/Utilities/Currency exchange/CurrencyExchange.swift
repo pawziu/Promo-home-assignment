@@ -24,6 +24,8 @@ final class CurrencyExchange: CurrencyExchanging {
     
     private enum Configuration {
         static var currencyRefreshTime: TimeInterval { 5.0 }
+        static var defaultExchangeRate: Decimal { 1.0 }
+        static var allowedRetryTimes: Int { 3 }
     }
     
     // MARK: - Instance
@@ -32,24 +34,17 @@ final class CurrencyExchange: CurrencyExchanging {
     
     // MARK: - Dependencies
     
-    private let api: APIProtocol
+    private let exchangeRatesManager: ExchangeRatesManaging
     
     // MARK: - Properties
     
-    lazy var exchangeAvailable: AnyPublisher<Bool, Never> = exchangeAvailableSubject
-        .eraseToAnyPublisher()
-    
-    lazy var availableCurrencies: AnyPublisher<[Currency], Never> = availableCurrenciesSubject
-        .eraseToAnyPublisher()
-    
-    lazy var chosenCurrency: AnyPublisher<Currency, Never> = currentAvailableCurrencySubject
-        .eraseToAnyPublisher()
-    
-    var currentCurrency: Currency {
-        currentAvailableCurrencySubject.value
-    }
+    lazy var exchangeAvailable: AnyPublisher<Bool, Never> = exchangeAvailableSubject.eraseToAnyPublisher()
+    lazy var availableCurrencies: AnyPublisher<[Currency], Never> = availableCurrenciesSubject.eraseToAnyPublisher()
+    lazy var chosenCurrency: AnyPublisher<Currency, Never> = currentAvailableCurrencySubject.eraseToAnyPublisher()
+    var currentCurrency: Currency { currentAvailableCurrencySubject.value }
     
     private let referenceCurrency: Currency = .default
+    private let currentTimePublisher = Timer.TimerPublisher(interval: Configuration.currencyRefreshTime, runLoop: .current, mode: .default)
 
     // MARK: - Subjects
     
@@ -60,15 +55,13 @@ final class CurrencyExchange: CurrencyExchanging {
     private let currentAvailableCurrencySubject = CurrentValueSubject<Currency, Never>(.default)
     private let currentExchangeRateSubject = CurrentValueSubject<Decimal, Never>(1.0)
     
-    private let currentTimePublisher = Timer.TimerPublisher(interval: Configuration.currencyRefreshTime, runLoop: .current, mode: .default)
-    
     private var disposables = Set<AnyCancellable>()
     private let timerCancellable: AnyCancellable?
     
     // MARK: - Initialization
     
-    private init(api: APIProtocol = API.shared) {
-        self.api = api
+    private init(exchangeRatesManager: ExchangeRatesManaging = ExchangeRatesManager()) {
+        self.exchangeRatesManager = exchangeRatesManager
         timerCancellable = currentTimePublisher.connect() as? AnyCancellable
         setupBindings()
         loadDataSubject.send(())
@@ -78,9 +71,15 @@ final class CurrencyExchange: CurrencyExchanging {
         timerCancellable?.cancel()
     }
     
-    // MARK: - Setup
+    // MARK: - Bindings
     
     private func setupBindings() {
+        bindAvailableCurrencies()
+        bindDefaultCurrency()
+        bindExchangeRate()
+    }
+    
+    private func bindDefaultCurrency() {
         let defaultChosen = chosenCurrencySubject
             .removeDuplicates()
             .filter { $0 == .default }
@@ -91,18 +90,20 @@ final class CurrencyExchange: CurrencyExchanging {
             .store(in: &disposables)
         
         defaultChosen
-            .map { _ in 1.0 }
+            .map { _ in Configuration.defaultExchangeRate }
             .subscribe(currentExchangeRateSubject)
             .store(in: &disposables)
-        
+    }
+    
+    private func bindAvailableCurrencies() {
         loadDataSubject
             .flatMap { [weak self] _ -> AnyPublisher<SupportedExchangeRatesPairs, APIError> in
                 guard let self = self else { return Fail(error: APIError.unknown).eraseToAnyPublisher() }
-                return self.getCurrentExchangePairs()
+                return self.exchangeRatesManager.getCurrentExchangePairs()
             }
             .catch { [weak self] _ -> Empty<SupportedExchangeRatesPairs, Never> in
                 self?.disableExchange()
-                return Empty(completeImmediately: false)
+                return Empty(completeImmediately: true)
             }
             .map { $0.supportedCurrencies }
             .handleEvents(receiveOutput: { [weak self] _ in
@@ -111,27 +112,13 @@ final class CurrencyExchange: CurrencyExchanging {
             .share()
             .subscribe(availableCurrenciesSubject)
             .store(in: &disposables)
-        
-        let exchangeRate = Publishers
-            .Merge(
-                currentTimePublisher
-                    .map { _ in return self.chosenCurrencySubject.value },
-                chosenCurrencySubject
-                    .removeDuplicates()
-            )
-            .filter { $0 != .default }
-            .setFailureType(to: APIError.self)
-            .flatMap(maxPublishers: .max(1)) { [weak self] currency -> AnyPublisher<ExchangeRatesPairs, APIError> in
-                guard let self = self else { return Fail(error: APIError.unknown).eraseToAnyPublisher() }
-                return self.getExchangeRate(for: currency)
-            }
-            .catch { [weak self] _ -> Empty<ExchangeRatesPairs, Never> in
-                self?.disableExchange()
+    }
+    
+    private func bindExchangeRate() {
+        let exchangeRate = getExchangeRate()
+            .catch { _ -> Empty<ExchangeRatesPairs, Never> in
                 return Empty(completeImmediately: false)
             }
-            .handleEvents(receiveOutput: { [weak self] _ in
-                self?.exchangeAvailableSubject.send(true)
-            })
             .map { $0.rates.first?.value.rate ?? .zero }
             .share()
             .eraseToAnyPublisher()
@@ -146,10 +133,34 @@ final class CurrencyExchange: CurrencyExchanging {
             .store(in: &disposables)
     }
     
+    private func getExchangeRate() -> AnyPublisher<ExchangeRatesPairs, APIError> {
+        return Publishers
+            .Merge(
+                currentTimePublisher
+                    .map { _ in return self.chosenCurrencySubject.value },
+                chosenCurrencySubject
+                    .removeDuplicates()
+            )
+            .filter { $0 != .default }
+            .setFailureType(to: APIError.self)
+            .flatMap(maxPublishers: .max(1)) { [weak self] currency -> AnyPublisher<ExchangeRatesPairs, APIError> in
+                guard let self = self else { return Fail(error: APIError.unknown).eraseToAnyPublisher() }
+                return self.exchangeRatesManager.getExchangeRate(for: currency)
+            }
+            .retry(Configuration.allowedRetryTimes)
+            .catch { [weak self] _ -> AnyPublisher<ExchangeRatesPairs, APIError> in
+                guard let self = self else { assertionFailure(); return Fail(error: APIError.unknown).eraseToAnyPublisher() }
+                return self.getExchangeRate()
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    // MARK: - Error handling
+    
     private func disableExchange() {
         exchangeAvailableSubject.send(false)
         currentAvailableCurrencySubject.send(.default)
-        currentExchangeRateSubject.send(1.0)
+        currentExchangeRateSubject.send(Configuration.defaultExchangeRate)
     }
     
     // MARK: - Exchanging
@@ -162,17 +173,5 @@ final class CurrencyExchange: CurrencyExchanging {
         guard chosenCurrencySubject.value == currentAvailableCurrencySubject.value else { return givenAmount }
         guard chosenCurrencySubject.value != referenceCurrency else { return givenAmount }
         return givenAmount * currentExchangeRateSubject.value
-    }
-    
-    // MARK: - Data downloading
-    
-    private func getCurrentExchangePairs() -> AnyPublisher<SupportedExchangeRatesPairs, APIError> {
-        let request = ExchangeRatesListRequest()
-        return api.call(with: request)
-    }
-    
-    private func getExchangeRate(for currency: Currency) -> AnyPublisher<ExchangeRatesPairs, APIError> {
-        let request = ExchangeRateRequest(currency: currency)
-        return api.call(with: request)
     }
 }
