@@ -22,6 +22,8 @@
 		E5638FDC23A51DEB00CF067F /* CheckoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5638FDB23A51DEB00CF067F /* CheckoutViewModel.swift */; };
 		E5655C0823A658AD0073342C /* CheckoutProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5655C0723A658AD0073342C /* CheckoutProductView.swift */; };
 		E568E78023A4B97500BE9FE3 /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E568E77F23A4B97500BE9FE3 /* ProductView.swift */; };
+		E577391123A84FA300BF5842 /* ExchangeRateManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E577391023A84FA300BF5842 /* ExchangeRateManagerMock.swift */; };
+		E577391323A8509700BF5842 /* CurrencyExchangeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E577391223A8509700BF5842 /* CurrencyExchangeTests.swift */; };
 		E5A31E3223A4069900222AC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A31E3123A4069900222AC8 /* AppDelegate.swift */; };
 		E5A31E3423A4069900222AC8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A31E3323A4069900222AC8 /* SceneDelegate.swift */; };
 		E5A31E3623A4069900222AC8 /* ShoppingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A31E3523A4069900222AC8 /* ShoppingListView.swift */; };
@@ -75,6 +77,8 @@
 		E5638FDB23A51DEB00CF067F /* CheckoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewModel.swift; sourceTree = "<group>"; };
 		E5655C0723A658AD0073342C /* CheckoutProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutProductView.swift; sourceTree = "<group>"; };
 		E568E77F23A4B97500BE9FE3 /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
+		E577391023A84FA300BF5842 /* ExchangeRateManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRateManagerMock.swift; sourceTree = "<group>"; };
+		E577391223A8509700BF5842 /* CurrencyExchangeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyExchangeTests.swift; sourceTree = "<group>"; };
 		E5A31E2E23A4069900222AC8 /* Home-assignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Home-assignment.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5A31E3123A4069900222AC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5A31E3323A4069900222AC8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -344,6 +348,7 @@
 		E5A31E4723A4069B00222AC8 /* Home-assignmentTests */ = {
 			isa = PBXGroup;
 			children = (
+				E5A5EFEF23A7F734006999E4 /* CombineTestUtilities.swift */,
 				E5A5EFF123A80266006999E4 /* Utilities */,
 				E5A5EFE623A7EDFA006999E4 /* Mocks */,
 				E5A5EFE323A7E86F006999E4 /* Features */,
@@ -369,6 +374,7 @@
 				E5A5EFED23A7F0E7006999E4 /* Mocks.swift */,
 				E5A5EFE723A7EE0A006999E4 /* CurrencyExchangeMock.swift */,
 				E5A5EFF423A805BB006999E4 /* JSONLoaderMock.swift */,
+				E577391023A84FA300BF5842 /* ExchangeRateManagerMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -376,7 +382,7 @@
 		E5A5EFF123A80266006999E4 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				E5A5EFEF23A7F734006999E4 /* CombineTestUtilities.swift */,
+				E577391223A8509700BF5842 /* CurrencyExchangeTests.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -584,9 +590,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5A5EFF023A7F734006999E4 /* CombineTestUtilities.swift in Sources */,
+				E577391123A84FA300BF5842 /* ExchangeRateManagerMock.swift in Sources */,
 				E5A5EFE523A7E887006999E4 /* ProductViewModelTests.swift in Sources */,
 				E5A5EFE823A7EE0A006999E4 /* CurrencyExchangeMock.swift in Sources */,
 				E5A5EFF323A802BD006999E4 /* CurrencyPickerViewModelTests.swift in Sources */,
+				E577391323A8509700BF5842 /* CurrencyExchangeTests.swift in Sources */,
 				E5A5EFF723A83A7F006999E4 /* ShoppingListViewModelTests.swift in Sources */,
 				E5A5EFF523A805BB006999E4 /* JSONLoaderMock.swift in Sources */,
 				E5A5EFEC23A7EFCB006999E4 /* CheckoutViewModelTests.swift in Sources */,

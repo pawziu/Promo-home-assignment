@@ -10,4 +10,8 @@ import Foundation
 
 final class ExchangeRate: Decodable {
     let rate: Decimal
+    
+    init(rate: Decimal) {
+        self.rate = rate
+    }
 }

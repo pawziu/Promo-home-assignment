@@ -60,7 +60,7 @@ final class CurrencyExchange: CurrencyExchanging {
     
     // MARK: - Initialization
     
-    private init(exchangeRatesManager: ExchangeRatesManaging = ExchangeRatesManager()) {
+    init(exchangeRatesManager: ExchangeRatesManaging = ExchangeRatesManager()) {
         self.exchangeRatesManager = exchangeRatesManager
         timerCancellable = currentTimePublisher.connect() as? AnyCancellable
         setupBindings()

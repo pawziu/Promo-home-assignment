@@ -38,4 +38,10 @@ enum Mocks {
             Mocks.currencyPLN
         ]
     }
+    static var supportedExchangePairs: SupportedExchangeRatesPairs {
+        SupportedExchangeRatesPairs(supportedPairs: ["USDPLN"])
+    }
+    static var exchangeRatePair: ExchangeRatesPairs {
+        ExchangeRatesPairs(rates: ["USDPLN": ExchangeRate(rate: currencyPLNRate)])
+    }
 }

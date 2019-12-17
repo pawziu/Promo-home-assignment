@@ -9,6 +9,8 @@
 import Foundation
 
 class SupportedExchangeRatesPairs: Decodable {
+    // MARK: - Properties
+    
     let supportedPairs: [String]
     
     var supportedCurrencies: [Currency] {
@@ -19,5 +21,11 @@ class SupportedExchangeRatesPairs: Decodable {
                 guard firstCurrency == Currency.default else { return nil }
                 return secondCurrency
             }
+    }
+    
+    // MARK: - Initialization
+    
+    init(supportedPairs: [String]) {
+        self.supportedPairs = supportedPairs
     }
 }
