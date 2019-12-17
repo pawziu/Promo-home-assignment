@@ -9,7 +9,7 @@
 import XCTest
 @testable import Home_assignment
 
-class ProductViewModelTests: XCTestCase {
+final class ProductViewModelTests: XCTestCase {
     
     private var systemUnderTests: ProductViewModel!
 

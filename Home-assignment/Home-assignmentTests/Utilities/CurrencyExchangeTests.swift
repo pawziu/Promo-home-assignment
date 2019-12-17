@@ -10,7 +10,7 @@ import XCTest
 import Combine
 @testable import Home_assignment
 
-class CurrencyExchangeTests: XCTestCase {
+final class CurrencyExchangeTests: XCTestCase {
     
     private var systemUnderTests: CurrencyExchange!
     private var failingSystemUnderTests: CurrencyExchange!
@@ -79,7 +79,7 @@ class CurrencyExchangeTests: XCTestCase {
     
     func testFailingSetCurrency() {
         // Given
-        let testReceive = expectedResult(
+        let testCurrencyReceive = expectedResult(
             publisher: failingSystemUnderTests.chosenCurrency,
             expectedResponse: Currency.default
         )
@@ -88,9 +88,10 @@ class CurrencyExchangeTests: XCTestCase {
         failingSystemUnderTests.setCurrency(Mocks.currencyPLN)
         
         // Then
-        wait(for: testReceive.expectations)
-        testReceive.cancellable?.cancel()
+        wait(for: testCurrencyReceive.expectations)
+        testCurrencyReceive.cancellable?.cancel()
         XCTAssert(failingSystemUnderTests.currentCurrency == Currency.default)
+        XCTAssertEqual(Mocks.price, failingSystemUnderTests.exchange(Mocks.price))
     }
     
     func testExchange() {

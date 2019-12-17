@@ -9,7 +9,7 @@
 import XCTest
 @testable import Home_assignment
 
-class CurrencyPickerViewModelTests: XCTestCase {
+final class CurrencyPickerViewModelTests: XCTestCase {
     
     private var currencyExchangeMock: CurrencyExchangeMock!
     private var systemUnderTests: CurrencyPickerViewModel!

@@ -69,12 +69,8 @@ struct ShoppingListView: View {
         )
     }
     
-    private var checkoutViewModel: CheckoutViewModel {
-        CheckoutViewModel(products: viewModel.checkoutItems)
-    }
-    
     private var checkoutButton: some View {
-        NavigationLink(destination: CheckoutView(viewModel: checkoutViewModel)) {
+        NavigationLink(destination: CheckoutView(viewModel: CheckoutViewModel(products: viewModel.checkoutItems))) {
             Text("checkout")
                 .padding()
         }

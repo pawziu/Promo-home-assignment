@@ -8,7 +8,8 @@
 
 import Foundation
 
-class SupportedExchangeRatesPairs: Decodable {
+final class SupportedExchangeRatesPairs: Decodable {
+    
     // MARK: - Properties
     
     let supportedPairs: [String]

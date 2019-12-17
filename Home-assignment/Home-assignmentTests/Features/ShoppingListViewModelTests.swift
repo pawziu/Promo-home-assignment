@@ -9,7 +9,7 @@
 import XCTest
 @testable import Home_assignment
 
-class ShoppingListViewModelTests: XCTestCase {
+final class ShoppingListViewModelTests: XCTestCase {
     
     private var jsonLoaderMock: JSONLoaderMock!
     private var currencyExchangeMock: CurrencyExchangeMock!

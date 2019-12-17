@@ -13,7 +13,7 @@ protocol APIProtocol {
     func call<T: Decodable>(with request: Request) -> AnyPublisher<T, APIError>
 }
 
-class API: APIProtocol {
+final class API: APIProtocol {
     
     // MARK: - Instance
     

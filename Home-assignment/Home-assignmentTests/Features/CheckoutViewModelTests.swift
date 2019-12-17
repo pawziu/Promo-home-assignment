@@ -10,7 +10,7 @@ import XCTest
 import Combine
 @testable import Home_assignment
 
-class CheckoutViewModelTests: XCTestCase {
+final class CheckoutViewModelTests: XCTestCase {
     
     private var currencyExchangeMock: CurrencyExchangeMock!
     private var systemUnderTests: CheckoutViewModel!

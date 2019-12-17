@@ -25,7 +25,7 @@ final class CurrencyExchange: CurrencyExchanging {
     private enum Configuration {
         static var currencyRefreshTime: TimeInterval { 5.0 }
         static var defaultExchangeRate: Decimal { 1.0 }
-        static var allowedRetryTimes: Int { 3 }
+        static var allowedRetryTimes: Int { 1 }
     }
     
     // MARK: - Instance
@@ -45,7 +45,9 @@ final class CurrencyExchange: CurrencyExchanging {
     
     private let referenceCurrency: Currency = .default
     private let currentTimePublisher = Timer.TimerPublisher(interval: Configuration.currencyRefreshTime, runLoop: .current, mode: .default)
-
+    private var disposables = Set<AnyCancellable>()
+    private let timerCancellable: AnyCancellable?
+    
     // MARK: - Subjects
     
     private let exchangeAvailableSubject = CurrentValueSubject<Bool, Never>(false)
@@ -55,9 +57,6 @@ final class CurrencyExchange: CurrencyExchanging {
     private let chosenCurrencyPassthroughSubject = PassthroughSubject<Currency, Never>()
     private let currentAvailableCurrencySubject = CurrentValueSubject<Currency, Never>(.default)
     private let currentExchangeRateSubject = CurrentValueSubject<Decimal, Never>(1.0)
-    
-    private var disposables = Set<AnyCancellable>()
-    private let timerCancellable: AnyCancellable?
     
     // MARK: - Initialization
     
@@ -122,7 +121,7 @@ final class CurrencyExchange: CurrencyExchanging {
         
         let exchangeRate = getExchangeRate()
             .catch { _ -> Empty<ExchangeRatesPairs, Never> in
-                return Empty(completeImmediately: false)
+                return Empty(completeImmediately: true)
             }
             .map { $0.rates.first?.value.rate ?? .zero }
             .share()

@@ -52,7 +52,9 @@ final class CheckoutViewModel: ObservableObject {
     // MARK: - Data
     
     private func recalculateTotalPrice() {
-        totalAmount = .zero
-        dataSource.forEach { totalAmount += $0.totalPrice }
+        totalAmount = dataSource
+            .reduce(into: .zero) { price, product in
+                price += product.totalPrice
+            }
     }
 }
