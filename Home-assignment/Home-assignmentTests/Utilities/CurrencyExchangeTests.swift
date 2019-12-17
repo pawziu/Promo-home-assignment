@@ -85,11 +85,12 @@ class CurrencyExchangeTests: XCTestCase {
         )
         
         // When
-        systemUnderTests.setCurrency(Mocks.currencyPLN)
+        failingSystemUnderTests.setCurrency(Mocks.currencyPLN)
         
         // Then
         wait(for: testReceive.expectations)
         testReceive.cancellable?.cancel()
+        XCTAssert(failingSystemUnderTests.currentCurrency == Currency.default)
     }
     
     func testExchange() {

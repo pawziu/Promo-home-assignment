@@ -52,6 +52,7 @@ final class CurrencyExchange: CurrencyExchanging {
     private let loadDataSubject = PassthroughSubject<Void, APIError>()
     private let availableCurrenciesSubject = CurrentValueSubject<[Currency], Never>([])
     private let chosenCurrencySubject = CurrentValueSubject<Currency, Never>(.default)
+    private let chosenCurrencyPassthroughSubject = PassthroughSubject<Currency, Never>()
     private let currentAvailableCurrencySubject = CurrentValueSubject<Currency, Never>(.default)
     private let currentExchangeRateSubject = CurrentValueSubject<Decimal, Never>(1.0)
     
@@ -103,7 +104,7 @@ final class CurrencyExchange: CurrencyExchanging {
             }
             .catch { [weak self] _ -> Empty<SupportedExchangeRatesPairs, Never> in
                 self?.disableExchange()
-                return Empty(completeImmediately: true)
+                return Empty(completeImmediately: false)
             }
             .map { $0.supportedCurrencies }
             .handleEvents(receiveOutput: { [weak self] _ in
@@ -115,6 +116,10 @@ final class CurrencyExchange: CurrencyExchanging {
     }
     
     private func bindExchangeRate() {
+        chosenCurrencySubject
+            .subscribe(chosenCurrencyPassthroughSubject)
+            .store(in: &disposables)
+        
         let exchangeRate = getExchangeRate()
             .catch { _ -> Empty<ExchangeRatesPairs, Never> in
                 return Empty(completeImmediately: false)
@@ -138,7 +143,7 @@ final class CurrencyExchange: CurrencyExchanging {
             .Merge(
                 currentTimePublisher
                     .map { _ in return self.chosenCurrencySubject.value },
-                chosenCurrencySubject
+                chosenCurrencyPassthroughSubject
                     .removeDuplicates()
             )
             .filter { $0 != .default }
