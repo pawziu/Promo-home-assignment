@@ -13,5 +13,5 @@ Primary error handling is done, but with production app I would definately pay m
 I’m looking forward to code review and comments!
 
 # Minimum requirements
-⋅⋅* Xcode 11.0
-⋅⋅* iOS 13.0
+* Xcode 11.0
+* iOS 13.0
