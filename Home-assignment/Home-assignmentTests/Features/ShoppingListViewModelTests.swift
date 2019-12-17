@@ -82,4 +82,47 @@ class ShoppingListViewModelTests: XCTestCase {
         wait(for: testReceive.expectations)
         testReceive.cancellable?.cancel()
     }
+    
+    func testCurrencyExchange() {
+        // Given
+        let expectedDataSource = Mocks.productsViewModels
+        expectedDataSource.forEach {
+            $0.calculatedPrice = Mocks.price * Mocks.currencyPLNRate
+            $0.currencyName = Mocks.currencyPLN.name
+        }
+        let testReceive = expectedResult(
+            publisher: systemUnderTests.$dataSource,
+            expectedResponse: expectedDataSource
+        )
+        
+        // When
+        currencyExchangeMock.setCurrency(Mocks.currencyPLN)
+        
+        // Then
+        wait(for: testReceive.expectations)
+        testReceive.cancellable?.cancel()
+    }
+    
+    func testTotalAmount() {
+        // Given
+        let predictionReceive = expectedResult(publisher: systemUnderTests.$dataSource.removeDuplicates(), expectedResponse: Mocks.productsViewModels)
+        wait(for: predictionReceive.expectations)
+        predictionReceive.cancellable?.cancel()
+        
+        let expectedPrice = Decimal(Mocks.productsViewModels.count) * Mocks.price * Mocks.currencyPLNRate
+        let testReceive = expectedResult(
+            publisher: systemUnderTests.$totalAmount.removeDuplicates(),
+            expectedResponse: expectedPrice
+        )
+        
+        // When
+        currencyExchangeMock.setCurrency(Mocks.currencyPLN)
+        systemUnderTests.dataSource.forEach {
+            $0.increaseCount()
+        }
+        
+        // Then
+        wait(for: testReceive.expectations)
+        testReceive.cancellable?.cancel()
+    }
 }

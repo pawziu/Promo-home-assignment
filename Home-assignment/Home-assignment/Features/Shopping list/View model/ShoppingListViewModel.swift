@@ -70,17 +70,20 @@ final class ShoppingListViewModel: ObservableObject {
         dataSourceDisposables = []
         dataSource.forEach {
             $0.$totalPrice
+                .removeDuplicates()
                 .receive(on: RunLoop.main)
                 .sink(receiveValue: { [weak self] _ in
                     self?.recalculateTotalPrice()
                 })
-                .store(in: &self.dataSourceDisposables)
+                .store(in: &dataSourceDisposables)
         }
     }
     
     private func recalculateTotalPrice() {
-        totalAmount = .zero
-        dataSource.forEach { totalAmount += $0.totalPrice }
+        totalAmount = dataSource
+            .reduce(into: .zero) { price, product in
+                price += product.totalPrice
+            }
         checkoutItems = dataSource.filter { $0.count != 0 }
     }
 }

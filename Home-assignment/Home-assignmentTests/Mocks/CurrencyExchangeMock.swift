@@ -24,7 +24,7 @@ final class CurrencyExchangeMock: CurrencyExchanging {
     }
     
     func exchange(_ givenAmount: Decimal) -> Decimal {
-        switch currentCurrency {
+        switch currentCurrencySubject.value {
         case Mocks.currencyPLN: return givenAmount * Mocks.currencyPLNRate
         default: return givenAmount
         }
