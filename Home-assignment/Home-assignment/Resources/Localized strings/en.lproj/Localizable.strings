@@ -1,0 +1,18 @@
+/* 
+  Localized.strings
+  Home-assignment
+
+  Created by Paweł Wiśniewski on 13/12/2019.
+  Copyright © 2019 promo. All rights reserved.
+*/
+
+"common.per" = "per";
+"common.ok" = "OK";
+
+"shoppingList.navigationTitle" = "Grocery";
+"basket.total" = "Total";
+"checkout" = "Checkout";
+"basket.empty" = "Your basket is empty 🛒";
+"currency.change" = "Change currency";
+"currency.notAvailable.title" = "Exchange not available";
+"currency.notAvailable.subtitle" = "Sorry, currency exchange is not available at the moment.";
